@@ -3,8 +3,7 @@ const autoScroll = async function(page, maxScroll) {
         width: 1200,
         height: 800
     })
-    await _scroll(page, maxScroll);
-    console.log('Auto scroll completed')
+    await _scroll(page, maxScroll)
 }
 
 
@@ -22,7 +21,7 @@ async function _scroll(page, maxScroll){
 
                 // console.log('scrollHeight - window.innerHeight: ' + scrollHeight - window.innerHeight)
 
-                if(totalHeight >= 300){
+                if(totalHeight >= 500){
                     clearInterval(timer);
                     resolve();
                 }

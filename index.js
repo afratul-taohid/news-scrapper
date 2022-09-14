@@ -9,7 +9,37 @@ var newsItems = [
         "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
         "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
         "date": "08 Sep 2022"
-    }
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
+    {
+        "href": "https://en.prothomalo.com/bangladesh/53w9yack4a",
+        "headline": "Bangladesh loses remittance worth Tk 750b in hundi: CID",
+        "date": "08 Sep 2022"
+    },
   ];
 
   
@@ -19,8 +49,7 @@ var newsItems = [
     await page.goto('https://en.prothomalo.com/topic/Money-laundering')
     await loadAllContent(page)
     var newsItems = await scrapNewsMeta(page)
-    await page.close()  
-    var data = await scrapNewsDetails(browser, newsItems)
+    var data = await scrapNewsDetails(page, newsItems)
     saveToJSON(data)
     await browser.close()
 })().catch((error) => {
@@ -52,12 +81,12 @@ async function scrapNewsMeta(page) {
     return data
 }
 
-async function scrapNewsDetails(browser, newsItems) {
+async function scrapNewsDetails(page, newsItems) {
     console.log('Details Scrapping started')
 
-    return await Promise.all(newsItems.map(async newsMeta => {
+    for (const newsMeta of newsItems) {
 
-        const page = await browser.newPage()
+        console.log(`Geeting details for ${newsMeta.href}`)
         await page.goto(newsMeta.href, {waitUntil: 'load', timeout: 0})
         await pageScroll.autoScroll(page, 300)
 
@@ -75,16 +104,10 @@ async function scrapNewsDetails(browser, newsItems) {
                 return option.src
             })
         }
-
-        await page.close();
-            
-    })).then(result => {
-        console.log('Total ' + newsItems.length + ' Item Found')
-        return newsItems
-    }).catch(err => {
-        console.log(err)
-        return newsItems
-    })
+    }
+   
+    console.log('Total ' + newsItems.length + ' Item Found')
+    return newsItems
 }
 
 function saveToJSON(data) {
